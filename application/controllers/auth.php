@@ -48,25 +48,31 @@ class auth extends CI_Controller {
             $password = $this->input->post('password');
             $user = $this->User_model->get_user_by_username($username);
             if($user){
-                if(password_verify($password, $user['password'])){
-                    $data = [
-                        'username' => $user['username'],
-                        'role' => $user['role'],
+                $this->session->set_userdata([
+                        'id' => $user->id,
+                        'username' => $user->username,
+                        'role' => $user->role,
                         'logged_in' => true
-                    ];
-                    $this->session->set_userdata($data);
-                    redirect('berita');
+                    ]);
+                    $this->redirect_by_role($user->role);
                 }else{
                     $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Password salah</div>');
                     redirect('auth/login');
                 }
-            }else{
-                $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Username tidak ditemukan</div>');
-                redirect('auth/login');
-            
+            }
+            private function redirect_by_role($role) {
+                switch ($role) {
+                    case 'admin':
+                        redirect('Dashboard');
+                        break;
+                    case 'user':
+                        redirect('user/Dashboard');
+                        break;
+                    default:
+                    redirect('auth/login');
+                }
             }
         }
-    }
     public function logout(){
         $this->session->sess_destroy();
         redirect('auth/login');
