@@ -230,12 +230,6 @@
                 </a>
               </li>
               <?php } ?>
-              <li class="nav-item">
-                <a href="<?= base_url('index.php/matkul');?>" class="nav-link">
-                  <i class="far fa-newspaper nav-icon"></i>
-                  <p>Matakuliah</p>
-                </a>
-              </li>
             </ul> <!-- /.nav-treeview for Dashboard -->
           </li> <!-- /.nav-item for Dashboard -->
 
