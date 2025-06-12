@@ -9,14 +9,19 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
    <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css');?>">
+   <link rel="stylesheet" href="https://code.iconicframework.com/ionicons/2.0.1/css/ionicons.min.css">
    <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/fontawesome-free/css/all.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/jqvmap/jqvmap.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/overlayScrollbars/css/overlayScrollbars.min.css');?>">
+   <link rel="stylesheet" href="<?= base_url('aset/admminlte/plugins/datatables-bs4/css/dataTables.bootstrap.mn.css');?>">
    <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/daterangepicker/daterangepicker.css');?>">
    <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/summernote/summernote-bs4.css');?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url('aset/adminlte/dist/css/adminlte.min.css');?>">
+  <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');?>">
+  <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');?>">
+  <link rel="stylesheet" href="<?= base_url('aset/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css');?>">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -211,6 +216,7 @@
                   <p>Berita</p>
                 </a>
               </li>
+              <?php if ($this->session->userdata('role') == 'Admin') { ?>
               <li class="nav-item">
                 <a href="<?= base_url('index.php/kategori');?>" class="nav-link">
                   <i class="far fa-newspaper nav-icon"></i>
@@ -218,12 +224,123 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="<?= base_url('index.php/auth/logout');?>" class="nav-link">
-                  <i class="fas fa-sign-out-alt nav-icon"></i>
-                  <p>Logout</p>
+                <a href="<?= base_url('index.php/berita/laporan');?>" class="nav-link">
+                  <i class="nav-icon fas fa-users-cog"></i>
+                  <p>Laporan</p>
                 </a>
               </li>
-        </ul>
+              <?php } ?>
+              <li class="nav-item">
+                <a href="<?= base_url('index.php/matkul');?>" class="nav-link">
+                  <i class="far fa-newspaper nav-icon"></i>
+                  <p>Matakuliah</p>
+                </a>
+              </li>
+            </ul> <!-- /.nav-treeview for Dashboard -->
+          </li> <!-- /.nav-item for Dashboard -->
+
+          <!-- Sales Order Menu -->
+          <?php if ($this->session->userdata('role') == 'Admin') { ?>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-folder-open nav-icon"></i> <!-- Icon for Sales Order -->
+              <p>
+                Manajemen Data
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item"> <!-- Manajemen Data -->
+                <a href="<?= base_url('index.php/produk');?>" class="nav-link">
+                  <i class="fas fa-box nav-icon"></i> <!-- Icon for Manajemen Data -->
+                  <p>Produk</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('index.php/pelanggan');?>" class="nav-link">
+                  <i class="fas fa-users nav-icon"></i> <!-- Icon for Pelanggan -->
+                  <p>Pelanggan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('index.php/sales');?>" class="nav-link">
+                  <i class="fas fa-user-tie nav-icon"></i> <!-- Icon for Sales -->
+                  <p>Sales</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <?php } ?>
+          <!-- End Manajemen Data Menu -->
+
+          <!-- Sales Order Menu -->
+          <?php if ($this->session->userdata('role') == 'Sales') { ?>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-shopping-cart"></i> <!-- Icon for Sales Order -->
+              <p>
+                Sales Order
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('index.php/salesorder/create');?>" class="nav-link">
+                  <i class="fas fa-plus-circle nav-icon"></i>
+                  <p>Buat Order Baru</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('index.php/salesorder');?>" class="nav-link">
+                  <i class="fas fa-list-alt nav-icon"></i>
+                  <p>Daftar Order</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <?php } ?>
+          <!-- End Sales Order Menu -->
+
+          <!-- Laporan Menu -->
+          <?php if ($this->session->userdata('role') == 'Manager') { ?>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-line"></i> <!-- Icon for Laporan -->
+              <p>
+                Laporan
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url('index.php/laporan/per_sales');?>" class="nav-link">
+                  <i class="fas fa-user-tag nav-icon"></i>
+                  <p>Penjualan Sales</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('index.php/laporan/per_produk');?>" class="nav-link">
+                  <i class="fas fa-boxes nav-icon"></i>
+                  <p>Penjualan Produk</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url('index.php/laporan/per_periode');?>" class="nav-link">
+                  <i class="fas fa-calendar-alt nav-icon"></i>
+                  <p>Penjualan Periode</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <?php } ?>
+          <li>
+            <a href="<?= base_url('index.php/auth/logout');?>" class="nav-link" onclick="confirmLogout(event)" >
+              <i class="fas fa-sign-out-alt nav-icon"></i>
+              <p>Logout</p>
+            </a>
+          </li>
+          <!-- End Laporan Menu -->
+        </ul> <!-- /.nav nav-pills nav-sidebar flex-column -->
       </nav>
       <!-- /.sidebar-menu -->
     </div>

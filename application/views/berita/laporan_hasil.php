@@ -1,4 +1,4 @@
-  <!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -24,39 +24,42 @@
     <h3 class="card-title">List Berita</h3>
 
     <div class="card-tools">
-      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+      <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltlp" title="Collapse">
         <i class="fas fa-minus"></i>
       </button>
-      <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+      <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltlp" title="Remove">
         <i class="fas fa-times"></i>
       </button>
     </div>
   </div>
   <div class="card-body">
-    <a href="<?= base_url('index.php/kategori/tambah');?>" class="btn btn-primary mb-3">Tambah Berita</a>
-    <?php if (!empty($kategori_berita)) : ?>
-      <table class="table table-bordered table-striped">
+    <h3>laporan berita dari <?= $tanggal_dari ?> sampai <?= $tanggal_sampai ?></h3>
+    <table id="datatable" border="1" cellpadding="5" cellspacing="0" >
         <thead>
-          <tr>
-            <th>Kategori</th>
-          </tr>
+            <tr>
+                <th>No</th>
+                <th>Judul</th>
+                <th>Tanggal Publish</th>
+                <th>Pengirim</th>
+            </tr>
         </thead>
         <tbody>
-          <?php foreach ($kategori_berita as $c) :?>
+            <?php
+            $no = 1;
+            foreach ($berita as $b) :
+            ?>
             <tr>
-              <td><?= $c->kategori;?></td>
-              <td>
-                <a href="<?= base_url('index.php/kategori/edit/'. $c->idberita);?>" class="btn btn-sm btn-info">Edit</a>
-                <a href="<?= base_url('index.php/kategori/hapus/' . $c->idberita);?>" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin ingin menghapusnya?')">Hapus</a>
-              </td>
-          </tr>
-          <?php endforeach;?>
+                <td><?= $no++; ?></td>
+                <td><?= $b->judul; ?></td>
+                <td><?= $b->tanggal_publish; ?></td>
+                <td><?= $b->pengirim; ?></td>
+            </tr>
+            <?php endforeach; ?>
         </tbody>
-      </table>
-      <?php else :?>
-        <div class="alert alert-warning">Tidak ada kategori yang tersedia</div>
-      <?php endif;?>
-  </div>
+    </table>
+    </div>
+
+
   <!-- /.card-body -->
   <div class="card-footer">
     Footer

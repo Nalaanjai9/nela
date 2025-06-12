@@ -53,8 +53,10 @@
           <label for="role">Role</label>
           <select class="form-control" id="role" name="role" required>
               <option value="">-- Pilih Role --</option>
-              <option value="admin">Admin</option>
-              <option value="user">User</option>
+              <option value="Admin">Admin</option>
+              <option value="User">User</option>
+              <option value="Sales">sales</option>
+              <option value="Manager">manager</option>
           </select><br>
           <small>Pilih role yang ingin anda daftarkan.</small>
         </div>

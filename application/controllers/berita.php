@@ -17,6 +17,8 @@ class berita extends CI_Controller{
         $this->load->view('Tamplates/footer');
     }
     public function tambah(){
+        $this->load->model('Kategori_Model');
+        $data['kategori_berita']=$this->Kategori_Model->get_all_kategori();
         $data['berita']=$this->Berita_Model->get_all_berita();
         $this->load->view('Tamplates/header');
         $this->load->view('berita/form_berita',$data);
@@ -28,13 +30,15 @@ class berita extends CI_Controller{
         $headline = $this->input->post('headline');
         $isi = $this->input->post('isi_berita');
         $pengirim = $this->input->post('pengirim');
+        $tgl_publish = $this->input->post('tgl_publish');
 
         $data = array(
             'judul' => $judul,
             'kategori' => $kategori,
             'headline' => $headline,
             'isi_berita' => $isi,
-            'pengirim' => $pengirim
+            'pengirim' => $pengirim,
+            'tanggal_publish' => $tgl_publish
         );
         $result=$this->Berita_Model->insert_berita($data);
 
@@ -79,4 +83,23 @@ class berita extends CI_Controller{
         }
 
     }
+    public function  laporan()
+{
+    $this->load->view('Tamplates/header');
+    $this->load->view('berita/laporan_berita');
+    $this->load->view('Tamplates/footer');
 }
+public function cetak_laporan()
+{
+    $tanggal_dari = $this->input->post('tanggal_dari');
+    $tanggal_sampai = $this->input->post('tanggal_sampai');
+
+    $data['berita'] = $this->Berita_Model->get_laporan_berita($tanggal_dari, $tanggal_sampai);
+    $data['tanggal_dari'] = $tanggal_dari;
+    $data['tanggal_sampai'] = $tanggal_sampai;
+
+    $this->load->view('Tamplates/header');
+    $this->load->view('berita/laporan_hasil', $data);
+    $this->load->view('Tamplates/footer');
+}
+} 

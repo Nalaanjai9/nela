@@ -17,4 +17,9 @@ class Berita_Model extends CI_Model{
         $this->db->where('idberita',$id);
         return $this->db->update('berita',$data);
     }
+    public function get_laporan_berita($tanggal_dari, $tanggal_sampai){
+        $this->db->where('tanggal_publish >=', $tanggal_dari);
+        $this->db->where('tanggal_publish <=', $tanggal_sampai);
+        return $this->db->get('berita')->result();
+    }
 }

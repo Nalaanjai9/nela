@@ -39,40 +39,40 @@ class auth extends CI_Controller {
         $this->load->view('auth/login');
     }
     public function process_login(){
-        $this->form_validation->set_rules('username','username','required');
-        $this->form_validation->set_rules('password','password','required');
-        if($this->form_validation->run()==false){
-            $this->load->view('auth/login');
-        }else{
+        // $this->form_validation->set_rules('username','username','required');
+        // $this->form_validation->set_rules('password','password','required');
+        // if($this->form_validation->run()==false){
+        //     $this->load->view('auth/login');
+        // }else{
             $username = $this->input->post('username');
             $password = $this->input->post('password');
-            $user = $this->User_model->get_user_by_username($username);
+                $user = $this->User_model->check_user($username, $password);
             if($user){
                 $this->session->set_userdata([
-                        'id' => $user->id,
+                        'user_id' => $user->id,
                         'username' => $user->username,
                         'role' => $user->role,
                         'logged_in' => true
-                    ]);
+            ]);
                     $this->redirect_by_role($user->role);
                 }else{
-                    $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Password salah</div>');
+                    $this->session->set_flashdata('error','username atau password salah');
                     redirect('auth/login');
                 }
-            }
-            private function redirect_by_role($role) {
-                switch ($role) {
-                    case 'admin':
-                        redirect('Dashboard');
-                        break;
-                    case 'user':
-                        redirect('user/Dashboard');
-                        break;
-                    default:
-                    redirect('auth/login');
-                }
+        }
+        private function redirect_by_role($role){
+            switch ($role) {
+                case 'Admin';
+                    redirect('dashboard');
+                    break;
+                case 'user';
+                    redirect('dashboard_user');
+                    break;
+                default:
+                    redirect('dashboard');
             }
         }
+    
     public function logout(){
         $this->session->sess_destroy();
         redirect('auth/login');

@@ -2,7 +2,7 @@
 defined('BASEPATH')OR exit('No direct script access allowed');
 class Kategori_Model extends CI_Model{
     public function get_all_kategori(){
-        return $this->db->get('kategori_berita')->result_array();
+        return $this->db->get('kategori_berita')->result();
     }
     public function insert_kategori($data){
         return $this->db->insert('kategori_berita',$data);

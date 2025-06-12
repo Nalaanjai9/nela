@@ -7,8 +7,13 @@ class User_model extends CI_Model {
     public function insert_user($data) {
         return $this->db->insert('users', $data);
     }
-    public function get_user_by_username($username) {
-        $query = $this->db->get_where('users', array('username' => $username));
-        return $query->row_array();
+   public function check_user($username, $password) {
+    $this->db->where('username',$username);
+    $user = $this->db->get('users')->row();
+
+    if ($user && password_verify($password, $user->password)) {
+        return $user;
     }
+    return false;
+   }
 }

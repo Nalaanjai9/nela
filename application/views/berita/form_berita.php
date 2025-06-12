@@ -40,7 +40,13 @@
         </div>
         <div class="form-group">
             <label for=" judul">kategori</label>
-            <input type="text" class="form-control" id="kategori" placeholder="kategori" name="kategori" required>
+            <select class="form-control" id="kategori" name="kategori" required>
+                <option value="">Pilih Kategori</option>
+                <?php if (!empty($kategori_berita));?>
+                <?php foreach ($kategori_berita as $k)  {?>
+                <option value="<?php echo $k->idberita;?>"><?php echo $k->kategori;?></option>
+                <?php }?>
+            </select>
         </div>
         <div class="form-group">
             <label for=" judul">headline</label>
